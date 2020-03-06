@@ -9,39 +9,46 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 
+import { tasksType } from '../../types'
+
 const SPaper = styled(Paper)`
   width: 720px;
+  min-height: 100vh;
   padding: 10px;
 `
 
 const STable = styled(Table)`
   min-width: 720px;
 `
+interface propsType {
+  tasks: Array<tasksType>
+}
 
-const tasks: string[] = ["one", "two", "three"]
 
-export const BossTable = () => {
+// const tasksArr: string[] = ["one", "two", "three"]
+
+export const BossTable: React.FC<propsType> = ({tasks}) => {
   return (
     <SPaper elevation={3} >
       <TableContainer>
         <STable>
           <TableHead>
             <TableRow >
-              <TableCell padding="checkbox">onehead</TableCell>
-              <TableCell  align="center">twohead</TableCell>
-              <TableCell align="center">threehead</TableCell>
+              <TableCell padding="checkbox">готово</TableCell>
+              <TableCell  align="center">имя</TableCell>
+              <TableCell align="center">задача</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
-              tasks.map( (item, key) => {
+              tasks.map( (task: tasksType, key: number) => {
                 return (
                   <TableRow key={key}>
                     <TableCell>
                       <Checkbox />
                     </TableCell>
-                    <TableCell align="center">{item}</TableCell>
-                    <TableCell align="center">{item}</TableCell>
+                    <TableCell align="center">{task.userId}</TableCell>
+                    <TableCell align="center">{task.title}</TableCell>
                   </TableRow>
                 )
               })
