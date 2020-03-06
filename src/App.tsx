@@ -4,15 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 
 import Table from './components/table'
-import { extractTasks, extractUsers } from './actions'
+import { extractDatas } from './actions'
 import { tasksType, usersType, initialStateType } from './types'
 
 const SContainer = styled.div`
   display: flex;
   min-height: 300px;
   justify-content: center;
-  align-content: center;
- 
+  align-content: center; 
 `
 
 const App = () => {
@@ -24,33 +23,29 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect( () => {
-    async function extractTask() {
+
+    //extract datas right in component
+    async function extractDatasFunc() {
       try {
         const responseTasks: any = await axios('http://jsonplaceholder.typicode.com/todos')
-        const dataTasksFromServer: Array<tasksType> = responseTasks.data
-        dispatch(extractTasks(dataTasksFromServer))
-      } catch(e) {
-        console.log("tasks " + e)
-      }
-    }
-    async function extractUser() {
-      try {
         const responseUsers: any = await axios('http://jsonplaceholder.typicode.com/users')
+
+        const dataTasksFromServer: Array<tasksType> = responseTasks.data
         const dataUsersFromServer: Array<usersType> = responseUsers.data
-        dispatch(extractUsers(dataUsersFromServer))
+
+        dispatch(extractDatas(dataTasksFromServer, dataUsersFromServer))
       } catch(e) {
-        console.log("users extract mistake " + e)
+        console.log("extract datas from server " + e)
       }
     }
-    
-    extractTask()
-    extractUser()
+
+    extractDatasFunc()
+
   }, [])
   
-  console.log(users)
   return (
     <SContainer>
-      <Table tasks={tasks} />
+      <Table tasks={tasks} users={users} />
     </SContainer>
   );
 }

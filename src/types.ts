@@ -12,6 +12,6 @@ export interface usersType {
 
 export interface initialStateType {
   tasks: Array<tasksType> | []
-  users: Array<usersType> | []
+  users: any
 }
 

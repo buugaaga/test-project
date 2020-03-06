@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 
-import { tasksType } from '../../types'
+import { tasksType, usersType } from '../../types'
 
 const SPaper = styled(Paper)`
   width: 720px;
@@ -22,12 +22,13 @@ const STable = styled(Table)`
 `
 interface propsType {
   tasks: Array<tasksType>
+  users: any
 }
 
 
 // const tasksArr: string[] = ["one", "two", "three"]
 
-export const BossTable: React.FC<propsType> = ({tasks}) => {
+export const BossTable: React.FC<propsType> = ({tasks, users}) => {
   return (
     <SPaper elevation={3} >
       <TableContainer>
@@ -47,7 +48,7 @@ export const BossTable: React.FC<propsType> = ({tasks}) => {
                     <TableCell>
                       <Checkbox />
                     </TableCell>
-                    <TableCell align="center">{task.userId}</TableCell>
+                    <TableCell align="center">{users[task.userId - 1].name}</TableCell>
                     <TableCell align="center">{task.title}</TableCell>
                   </TableRow>
                 )
