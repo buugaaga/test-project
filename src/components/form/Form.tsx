@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { FormCore } from './FormCore'
+// import { tasksType, usersType } from '../../types'
 
 const SLink = styled(Link)`
   position: absolute;
@@ -14,12 +15,20 @@ const SLink = styled(Link)`
   border-radius: 5px;
   text-decoration: none;
 `
+// 
+// interface Props {
+//   tasks: Array<tasksType> | []
+//   users: Array<usersType> | []
+// }
 
-export const FormPage: React.FC<any> = () => {
+export const FormPage: React.FC<any> = ({tasks, users}) => {
+  const { userId }: any = useParams()
+  const userName: string = users[userId-1] && users[userId-1].name 
+  const userTasks: any = tasks.filter( (task: any) => task.userId == userId )
   return (
     <>
       <SLink to='/'>На главную</SLink>
-      <FormCore />
+      <FormCore userName={userName} userTasks={userTasks} />
     </>
   )
 }

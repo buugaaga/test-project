@@ -9,9 +9,11 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Link } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
+import Form from '../form'
 // import { changeCopleteAction } from '../../actions/changeCompleteAction'
 
 
@@ -49,19 +51,19 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
           <TableBody>
             {
               tasks.map( (task: tasksType, key: number) => {
+              {/*фильтруем массив по id и возвращаем поле name из единственного значения массива*/}
+                let userName: string = users.filter( (user: any ) => {
+                  return user.id === task.userId
+                })[0].name
                 return (
                   <TableRow key={key}>
                     <TableCell>
                       <Checkbox checked={task.completed}  />
                     </TableCell>
                     <TableCell align="center">
-                      {/*
-                      фильтруем массив по id и возвращаем поле name из единственного значения массива
-                      */}
-                      <Link to="/form">
-                        {users.filter( (user: any ) => {
-                          return user.id === task.userId
-                        })[0].name}
+                      
+                      <Link to={`/form/${task.userId}`}>
+                        {userName}
                       </Link>
                     </TableCell>
                     <TableCell align="center">{task.title}</TableCell>

@@ -47,16 +47,18 @@ const App = () => {
     <SContainer>
       <Switch>
         <Route 
-          path='/form' 
-          render={() => (
-            <Form />
-          )}  />
-        <Route 
+          exact
           path='/' 
           render={() =>(
             <Table tasks={tasks} users={users} />
           )}
-        />      
+        />
+        <Route 
+          path='/form/:userId' 
+          render={() => (
+            <Form users={users} tasks={tasks} />
+          )}  
+        />        
       </Switch>
     </SContainer>
   );

@@ -1,12 +1,20 @@
 import React from 'react'
-import { useFormik } from 'formik'
+// import { useFormik } from 'formik'
 
-export const FormCore: React.FC<any> = () => {
+import { tasksType } from '../../types'
 
+export const FormCore: React.FC<any> = ({ userName, userTasks }) => {
+  
   return (
     <div>
-      <h1>d</h1>
-      <input type="text" name="task" placeholder={"jsjf"} />
+      <h1>{userName}</h1>
+      <ul>
+        {userTasks.map( (task: tasksType) => (
+          <li key={task.id}>{task.title}</li>
+        ))}
+      </ul>
+     
+      <input type="text" name="task" value={'hi'} />
     </div>
   )
 }
