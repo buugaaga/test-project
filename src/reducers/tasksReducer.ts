@@ -1,6 +1,7 @@
 
-import { tasksType, usersType, initialStateType } from '../types' 
-import { EXTRACT_DATAS } from '../actions'
+import { initialStateType } from '../types' 
+import { EXTRACT_DATAS } from '../actions/extractDatasAction'
+import { CHANGE_COMPLETE } from '../actions/changeCompleteAction'
 
 const initialState:  initialStateType = {
   tasks: [],
@@ -22,6 +23,20 @@ export function tasksReducer(state: initialStateType = initialState,  action: an
           ...action.users
         ]
       }
+      
+    case (typeof CHANGE_COMPLETE):
+      return {
+        ...state,
+        tasks: [
+          ...state.tasks.slice(0, action.id),
+          { 
+            ...state.tasks[action.id],
+            completed: action.completed
+          },
+          ...state.tasks.slice(action.id + 1)
+        ]
+      }
+      
     default:
       return state
   }

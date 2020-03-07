@@ -8,6 +8,9 @@ export interface tasksType {
 export interface usersType {
   id: number
   name: string
+  username: string
+  email: string
+  addres: any
 }
 
 export interface initialStateType {

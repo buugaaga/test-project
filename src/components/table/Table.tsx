@@ -9,8 +9,11 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Link } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
+// import { changeCopleteAction } from '../../actions/changeCompleteAction'
+
 
 const SPaper = styled(Paper)`
   width: 720px;
@@ -23,13 +26,15 @@ const STable = styled(Table)`
 `
 interface propsType {
   tasks: Array<tasksType>
-  users: any
+  users: Array<usersType>
 }
 
-
-// const tasksArr: string[] = ["one", "two", "three"]
-
 export const BossTable: React.FC<propsType> = ({tasks, users}) => {
+
+  // const dispatch = useDispatch()
+  // const handlerCheckbox = (e: any) => {
+  //   dispatch(changeCopleteAction(1, e.target.checked))
+  // }
   return (
     <SPaper elevation={3} >
       <TableContainer>
@@ -47,7 +52,7 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
                 return (
                   <TableRow key={key}>
                     <TableCell>
-                      <Checkbox />
+                      <Checkbox checked={task.completed}  />
                     </TableCell>
                     <TableCell align="center">
                       {/*

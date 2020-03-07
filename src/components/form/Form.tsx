@@ -2,6 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 
+import { FormCore } from './FormCore'
+
 const SLink = styled(Link)`
   position: absolute;
   top: 20px;
@@ -17,6 +19,7 @@ export const FormPage: React.FC<any> = () => {
   return (
     <>
       <SLink to='/'>На главную</SLink>
+      <FormCore />
     </>
   )
 }

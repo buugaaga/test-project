@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Table from './components/table'
 import Form from './components/form'
-import { extractDatas } from './actions'
+import { extractDatas } from './actions/extractDatasAction'
 import { tasksType, usersType, initialStateType } from './types'
 
 const SContainer = styled.div`
@@ -20,7 +20,7 @@ const App = () => {
 
   // используем хуки react redux. store лежит в provider index.ts
   const tasks: Array<any> = useSelector( (state: initialStateType) => state.tasks)  
-  const users: Array<any> = useSelector( (state: initialStateType) => state.users)
+  const users: Array<usersType> = useSelector( (state: initialStateType) => state.users)
 
   const dispatch = useDispatch()
 
@@ -33,16 +33,14 @@ const App = () => {
         const responseUsers: any = await axios('http://jsonplaceholder.typicode.com/users')
 
         const dataTasksFromServer: Array<tasksType> = responseTasks.data
-        const dataUsersFromServer: Array<usersType> = responseUsers.data
+        const dataUsersFromServer: Array<any> = responseUsers.data
 
         dispatch(extractDatas(dataTasksFromServer, dataUsersFromServer))
       } catch(e) {
         console.log("extract datas from server " + e)
       }
     }
-
     extractDatasFunc()
-
   }, [])
   
   return (
