@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import { Route, Switch } from 'react-router-dom'
 
 import Table from './components/table'
+import Form from './components/form'
 import { extractDatas } from './actions'
 import { tasksType, usersType, initialStateType } from './types'
 
@@ -45,7 +47,19 @@ const App = () => {
   
   return (
     <SContainer>
-      <Table tasks={tasks} users={users} />
+      <Switch>
+        <Route 
+          path='/form' 
+          render={() => (
+            <Form />
+          )}  />
+        <Route 
+          path='/' 
+          render={() =>(
+            <Table tasks={tasks} users={users} />
+          )}
+        />      
+      </Switch>
     </SContainer>
   );
 }

@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
+import { Link } from 'react-router-dom'
 
 import { tasksType, usersType } from '../../types'
 
@@ -48,7 +49,16 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
                     <TableCell>
                       <Checkbox />
                     </TableCell>
-                    <TableCell align="center">{users[task.userId - 1].name}</TableCell>
+                    <TableCell align="center">
+                      {/*
+                      фильтруем массив по id и возвращаем поле name из единственного значения массива
+                      */}
+                      <Link to="/form">
+                        {users.filter( (user: any ) => {
+                          return user.id === task.userId
+                        })[0].name}
+                      </Link>
+                    </TableCell>
                     <TableCell align="center">{task.title}</TableCell>
                   </TableRow>
                 )
