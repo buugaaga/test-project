@@ -6,7 +6,7 @@ import { tasksType } from '../../types'
 export const FormCore: React.FC<any> = ({ userName, userTasks }) => {
   
   return (
-    <div>
+    <form>
       <h1>{userName}</h1>
       <ul>
         {userTasks.map( (task: tasksType) => (
@@ -15,6 +15,6 @@ export const FormCore: React.FC<any> = ({ userName, userTasks }) => {
       </ul>
      
       <input type="text" name="task" value={'hi'} />
-    </div>
+    </form>
   )
 }

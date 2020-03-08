@@ -21,10 +21,14 @@ interface FormPageProps {
   users: Array<usersType> | []
 }
 
+interface ParamsType {
+  userId: any
+}
+
 export const FormPage: React.FC<FormPageProps> = ({tasks, users}) => {
-  const { userId }: any = useParams() // получаем индекс пользователя с url 
+  const { userId }: any = useParams<ParamsType>() // получаем индекс пользователя с url 
   const userName: string = users[userId-1] && users[userId-1].name //если есть индекс пользователя то получаем имя
-  const userTasks: any = tasks.filter( (task: any) => task.userId == userId ) //получаем задачи пользователя
+  const userTasks: Array<tasksType> = tasks.filter( (task: any) => task.userId == userId ) //получаем задачи пользователя
   return (
     <>
       <SLink to='/'>На главную</SLink>
