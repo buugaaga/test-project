@@ -1,3 +1,6 @@
+
+
+
 export interface tasksType {
   userId: number
   id: number
@@ -18,3 +21,12 @@ export interface initialStateType {
   users: any
 }
 
+export interface ExtractUsersActionTypes {
+  type: string
+  users: Array<usersType>
+}
+
+export interface ExtractTasksActionTypes {
+  type: string
+  tasks: Array<tasksType>
+}

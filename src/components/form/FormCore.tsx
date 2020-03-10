@@ -10,7 +10,9 @@ export const FormCore: React.FC<any> = ({ userName, userTasks }) => {
       <h1>{userName}</h1>
       <ul>
         {userTasks.map( (task: tasksType) => (
-          <li key={task.id}>{task.title}</li>
+          <li key={task.id}>
+            {task.title}
+          </li>
         ))}
       </ul>
      

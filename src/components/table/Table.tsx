@@ -9,8 +9,6 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Link } from 'react-router-dom'
-import { Switch, Route } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
 import Form from '../form'
@@ -33,10 +31,6 @@ interface propsType {
 
 export const BossTable: React.FC<propsType> = ({tasks, users}) => {
 
-  // const dispatch = useDispatch()
-  // const handlerCheckbox = (e: any) => {
-  //   dispatch(changeCopleteAction(1, e.target.checked))
-  // }
   return (
     <SPaper elevation={3} >
       <TableContainer>
@@ -52,9 +46,11 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
             {
               tasks.map( (task: tasksType, key: number) => {
               {/*фильтруем массив по id и возвращаем поле name из единственного значения массива*/}
-                let userName: string = users.filter( (user: any ) => {
-                  return user.id === task.userId
-                })[0].name
+
+                let filteredUsersArr =  users.filter( (itemUser: usersType ) => {
+                  return (itemUser.id === task.userId)
+                })
+                let userName: any = filteredUsersArr ? filteredUsersArr[0].name : null
                 return (
                   <TableRow key={key}>
                     <TableCell>
