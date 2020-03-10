@@ -1,16 +1,22 @@
 
-import { tasksType, ExtractTasksActionTypes } from '../types' 
+import { tasksType, ExtractTasksActionTypes, AddTaskTypes } from '../types' 
 // import { EXTRACT_DATAS } from '../actions/extractDatasAction'
 // import { CHANGE_COMPLETE } from '../actions/changeCompleteAction'
 
 export const EXTRACT_TASKS = 'EXTRACT_TASKS'
+export const ADD_TASK = 'ADD_TASK'
 
-export const tasksReducer = (state: [] | Array<tasksType> = [], action: ExtractTasksActionTypes): Array<tasksType> | [] => {
+export const tasksReducer = (state: [] | Array<tasksType> = [], action: ExtractTasksActionTypes & AddTaskTypes): Array<tasksType> | [] => {
   switch (action.type) {
     case EXTRACT_TASKS:
       return [
         ...state,
         ...action.tasks
+      ]
+    case ADD_TASK:
+      return [
+        ...state,
+        action.payload
       ]
     default:
       return state

@@ -30,3 +30,8 @@ export interface ExtractTasksActionTypes {
   type: string
   tasks: Array<tasksType>
 }
+
+export interface AddTaskTypes {
+  type: string
+  payload: tasksType
+}

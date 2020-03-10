@@ -1,7 +1,6 @@
 import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 
 import { EXTRACT_TASKS } from '../reducers/tasksReducer'
 import { EXTRACT_USERS } from '../reducers/usersReducer'

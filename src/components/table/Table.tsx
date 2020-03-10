@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Checkbox from '@material-ui/core/Checkbox'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { Link } from 'react-router-dom'
 
 import { tasksType, usersType } from '../../types'
@@ -31,20 +32,40 @@ interface propsType {
 
 export const BossTable: React.FC<propsType> = ({tasks, users}) => {
 
+  const [ isChecked, setIsChecked ] = useState(false)
+  const sortedCloneTasks = tasks.slice().sort( (a,b) => {
+    if(a.completed) {
+      if(isChecked) return 1
+        return -1
+    } else {
+      if(isChecked) return 1
+        return -1
+    }
+    
+  })
+  // const mappedArr = isChecked ? sortedCloneTasks : tasks
+
   return (
     <SPaper elevation={3} >
       <TableContainer>
         <STable>
           <TableHead>
             <TableRow >
-              <TableCell padding="checkbox">готово</TableCell>
+              <TableCell padding="checkbox">
+                готово
+                <TableSortLabel 
+                  active
+                  direction={ isChecked ? 'asc' : 'desc'}
+                  onClick={() => setIsChecked(!isChecked)}
+                />
+              </TableCell>
               <TableCell  align="center">имя</TableCell>
               <TableCell align="center">задача</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
-              tasks.map( (task: tasksType, key: number) => {
+              sortedCloneTasks.map( (task: tasksType, key: number) => {
               {/*фильтруем массив по id и возвращаем поле name из единственного значения массива*/}
 
                 let filteredUsersArr =  users.filter( (itemUser: usersType ) => {
