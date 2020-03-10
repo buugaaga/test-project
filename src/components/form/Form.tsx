@@ -2,8 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link, useParams } from 'react-router-dom'
 import { 
-  withFormik,
-  FormikErrors
+  useFormik
 } from 'formik'
 
 import { InnerForm } from './InnerForm'
@@ -33,31 +32,16 @@ interface MyFormValues {
   tasks: Array<tasksType>;
 }
 
-const MyForm = withFormik<any, any>({
-  mapPropsToValues: (props: any) => {
-    return {
-      task: 'sdf'
-    }
-  },
-  validate: (values: { tasks: any}) => {
-    let errors: FormikErrors<any> = {}
-    if (!values.tasks) {
-      errors.task = 'Required'
-    } 
-    return errors;
-  },
-  handleSubmit: values => {
-    // do submitting things
-  },
-})(InnerForm);
-
-  // const { userId }: any = useParams<ParamsType>() // получаем индекс пользователя с url 
-  // const userName: string = users[userId-1] && users[userId-1].name //если есть индекс пользователя то получаем имя
-  // const userTasks: Array<tasksType> = tasks.filter( (task: any) => task.userId == userId ) //получаем задачи пользователя
-  // const initialValues: any = { formikTasks: userTasks }
-
-
 export const FormPage: React.FC<any> = ({tasks, users}) => {
+
+  const formik = useFormik<{task: string}>({
+    initialValues: {
+      task: ''
+    },
+    onSubmit: values => {
+      console.log(values)
+    }
+  })
 
   const { userId }: any = useParams<ParamsType>()
   const userName: string = users[userId-1] && users[userId-1].name
@@ -65,9 +49,20 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
 
   return (
     <div>
-      <h1>My App</h1>
-      <p>This can be anywhere in your application</p>
-      <MyForm userName={userName} userTasks={userTasks} />
+      <SLink to='/'>Домой</SLink>
+      <form>
+      <h1>{userName}</h1>
+      
+      <input type="text" name="task" value={formik.values.task} onChange={formik.handleChange} />
+
+      <ul>
+        {userTasks.map( (task: tasksType) => (
+          <li key={task.id}>
+            {task.title}
+          </li>
+        ))}
+      </ul>
+    </form>
     </div>
   )
 }
