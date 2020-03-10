@@ -50,7 +50,7 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
                 let filteredUsersArr =  users.filter( (itemUser: usersType ) => {
                   return (itemUser.id === task.userId)
                 })
-                let userName: any = filteredUsersArr ? filteredUsersArr[0].name : null
+                let userName: any = filteredUsersArr[0] ? filteredUsersArr[0].name : null
                 return (
                   <TableRow key={key}>
                     <TableCell>
