@@ -19,7 +19,7 @@ export interface usersType {
 export interface initialStateType {
   tasks: Array<tasksType> | []
   users: any
-  isComleted?: boolean
+  isCompleted?: boolean
 }
 
 export interface ExtractUsersActionTypes {

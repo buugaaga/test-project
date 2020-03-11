@@ -4,20 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { orderByCompletedAction } from '../../actions/orderByCompletedAction'
 import { changeIsCompleted } from '../../actions/changeIsCompleted'
-
-
+import { RootState } from '../../reducers/rootReducer'
 
 export const EnhancedTableHead: React.FC<{}> = () => {
 
-  const isCompleted = useSelector( (state: any): any => state.isCompleted)
+  const isCompleted = useSelector( (state: RootState): boolean => state.isCompleted)
 
   const dispatch = useDispatch()
   const handleOrderByCompleted = () => {
     dispatch(changeIsCompleted(!isCompleted))
     dispatch(orderByCompletedAction(isCompleted))
   }
-  
-  console.log(isCompleted)
+
   return (
     <TableHead>
       <TableRow >

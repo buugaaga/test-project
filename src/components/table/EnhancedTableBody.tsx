@@ -1,12 +1,22 @@
 import React from 'react'
-import { TableBody, TableRow, TableCell, Checkbox } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { TableBody } from '@material-ui/core'
 
 import { tasksType, usersType } from '../../types'
+import { EnhacedTableRow } from './EnhancedTableRow'
 
 interface PropsType {
   tasks: Array<tasksType>
   users: Array<usersType>
+}
+
+type stringType = { 
+  task: string
+}
+
+function generateInitialValue(task: string): stringType {
+  return {
+    task
+  }
 }
 
 export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
@@ -21,23 +31,18 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
             return (itemUser.id === task.userId)
           })
           let userName: any = filteredUsersArr[0] ? filteredUsersArr[0].name : null
+
+          generateInitialValue(task.title)
+
           return (
-            <TableRow key={key}>
-              <TableCell>
-                <Checkbox checked={task.completed}  />
-              </TableCell>
-              <TableCell align="center">
-                
-                <Link to={`/form/${task.userId}`}>
-                  {userName}
-                </Link>
-              </TableCell>
-              <TableCell align="center">{task.title}</TableCell>
-            </TableRow>
+            <EnhacedTableRow 
+              key={key}
+              task={task} 
+              userName={userName}
+            />
           )
         })
       }
-      
     </TableBody>
   )
 }
