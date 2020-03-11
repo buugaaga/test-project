@@ -19,6 +19,7 @@ export interface usersType {
 export interface initialStateType {
   tasks: Array<tasksType> | []
   users: any
+  isComleted?: boolean
 }
 
 export interface ExtractUsersActionTypes {
@@ -34,4 +35,9 @@ export interface ExtractTasksActionTypes {
 export interface AddTaskTypes {
   type: string
   payload: tasksType
+}
+
+export interface ActionTypeIsCompleted {
+  type: string
+  isCompleted: boolean
 }

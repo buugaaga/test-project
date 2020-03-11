@@ -1,12 +1,12 @@
-
-import { tasksType, ExtractTasksActionTypes, AddTaskTypes } from '../types' 
-// import { EXTRACT_DATAS } from '../actions/extractDatasAction'
-// import { CHANGE_COMPLETE } from '../actions/changeCompleteAction'
+import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted } from '../types' 
 
 export const EXTRACT_TASKS = 'EXTRACT_TASKS'
 export const ADD_TASK = 'ADD_TASK'
+export const ORDER_BY_COMPLETED = 'ORDER_BY_COMPLETED'
 
-export const tasksReducer = (state: [] | Array<tasksType> = [], action: ExtractTasksActionTypes & AddTaskTypes): Array<tasksType> | [] => {
+type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted
+
+export const tasksReducer = (state: [] | Array<tasksType> = [], action: ActionType): Array<tasksType> | [] => {
   switch (action.type) {
     case EXTRACT_TASKS:
       return [
@@ -17,6 +17,23 @@ export const tasksReducer = (state: [] | Array<tasksType> = [], action: ExtractT
       return [
         ...state,
         action.payload
+      ]
+    case ORDER_BY_COMPLETED:
+      let cloneState = state.slice()
+      cloneState.sort( (a: tasksType, b: tasksType): any => {
+        if(action.isCompleted) {
+          if(a.completed && !b.completed) return 1
+          if(a.completed && b.completed || !a.completed && !b.completed) return 0
+          if(!a.completed && b.completed) return -1
+        } else {
+          if(a.completed && !b.completed) return -1
+          if(a.completed && b.completed || !a.completed && !b.completed) return 0
+          if(!a.completed && b.completed) return 1
+        }
+        
+      })
+      return [
+        ...cloneState
       ]
     default:
       return state
