@@ -1,20 +1,10 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import Paper from '@material-ui/core/Paper'
-import Table from '@material-ui/core/Table'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableBody from '@material-ui/core/TableBody'
-import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
-import Checkbox from '@material-ui/core/Checkbox'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import { Link } from 'react-router-dom'
+import { Paper, Table, TableContainer } from '@material-ui/core'
 
 import { tasksType, usersType } from '../../types'
-import Form from '../form'
-// import { changeCopleteAction } from '../../actions/changeCompleteAction'
-
+import { EnhancedTableHead } from './EnhancedTableHead'
+import { EnhancedTableBody } from './EnhancedTableBody'
 
 const SPaper = styled(Paper)`
   width: 720px;
@@ -32,64 +22,12 @@ interface propsType {
 
 export const BossTable: React.FC<propsType> = ({tasks, users}) => {
 
-  const [ isChecked, setIsChecked ] = useState(false)
-  const sortedCloneTasks = tasks.slice().sort( (a,b) => {
-    if(a.completed) {
-      if(isChecked) return 1
-        return -1
-    } else {
-      if(isChecked) return 1
-        return -1
-    }
-    
-  })
-  // const mappedArr = isChecked ? sortedCloneTasks : tasks
-
   return (
     <SPaper elevation={3} >
       <TableContainer>
         <STable>
-          <TableHead>
-            <TableRow >
-              <TableCell padding="checkbox">
-                готово
-                <TableSortLabel 
-                  active
-                  direction={ isChecked ? 'asc' : 'desc'}
-                  onClick={() => setIsChecked(!isChecked)}
-                />
-              </TableCell>
-              <TableCell  align="center">имя</TableCell>
-              <TableCell align="center">задача</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              sortedCloneTasks.map( (task: tasksType, key: number) => {
-              {/*фильтруем массив по id и возвращаем поле name из единственного значения массива*/}
-
-                let filteredUsersArr =  users.filter( (itemUser: usersType ) => {
-                  return (itemUser.id === task.userId)
-                })
-                let userName: any = filteredUsersArr[0] ? filteredUsersArr[0].name : null
-                return (
-                  <TableRow key={key}>
-                    <TableCell>
-                      <Checkbox checked={task.completed}  />
-                    </TableCell>
-                    <TableCell align="center">
-                      
-                      <Link to={`/form/${task.userId}`}>
-                        {userName}
-                      </Link>
-                    </TableCell>
-                    <TableCell align="center">{task.title}</TableCell>
-                  </TableRow>
-                )
-              })
-            }
-            
-          </TableBody>
+          <EnhancedTableHead />
+          <EnhancedTableBody tasks={tasks} users={users} />
         </STable>
       </TableContainer>
     </SPaper>
