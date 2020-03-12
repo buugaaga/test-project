@@ -1,5 +1,5 @@
+import { IS_COMPLETED } from '../types'
 
-export const IS_COMPLETED = 'IS_COMPLETED'
 
 interface ActionType {
   type: string

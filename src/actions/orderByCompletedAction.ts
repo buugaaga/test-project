@@ -1,4 +1,4 @@
-import { ORDER_BY_COMPLETED } from "../reducers/tasksReducer"
+import { ORDER_BY_COMPLETED } from "../types"
 
 
 export const orderByCompletedAction = (isCompleted: boolean) => {

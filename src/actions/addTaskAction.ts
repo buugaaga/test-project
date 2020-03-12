@@ -1,5 +1,5 @@
 import { Action } from 'redux'
-import { ADD_TASK } from '../reducers/tasksReducer'
+import { ADD_TASK } from '../types'
 
 import { AddTaskTypes } from '../types'
 

@@ -2,8 +2,8 @@ import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import axios from 'axios'
 
-import { EXTRACT_TASKS } from '../reducers/tasksReducer'
-import { EXTRACT_USERS } from '../reducers/usersReducer'
+import { EXTRACT_TASKS } from '../types'
+import { EXTRACT_USERS } from '../types'
 
 
 import { tasksType, usersType } from '../types'

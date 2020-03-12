@@ -1,9 +1,6 @@
 import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask } from '../types' 
+import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK } from '../types'
 
-export const EXTRACT_TASKS = 'EXTRACT_TASKS'
-export const ADD_TASK = 'ADD_TASK'
-export const ORDER_BY_COMPLETED = 'ORDER_BY_COMPLETED'
-export const UPDATE_TASK = 'UPDATE_TASK'
 
 type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask
 

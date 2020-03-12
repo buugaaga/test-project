@@ -1,5 +1,10 @@
 
-
+export const IS_COMPLETED = 'IS_COMPLETED'
+export const EXTRACT_TASKS = 'EXTRACT_TASKS'
+export const ADD_TASK = 'ADD_TASK'
+export const ORDER_BY_COMPLETED = 'ORDER_BY_COMPLETED'
+export const UPDATE_TASK = 'UPDATE_TASK'
+export const EXTRACT_USERS = 'EXTRACT_USERS'
 
 export interface tasksType {
   userId: number

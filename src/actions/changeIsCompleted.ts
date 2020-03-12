@@ -1,5 +1,5 @@
 import { ActionTypeIsCompleted  } from '../types'
-import { IS_COMPLETED } from '../reducers/isCompletedReducer'
+import { IS_COMPLETED } from '../types'
 
 export const changeIsCompleted = (completed: boolean): ActionTypeIsCompleted => {
   return {

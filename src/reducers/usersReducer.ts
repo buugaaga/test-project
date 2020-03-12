@@ -1,7 +1,5 @@
 import  { usersType, ExtractUsersActionTypes } from '../types'
-
-
-export const EXTRACT_USERS = 'EXTRACT_USERS'
+import { EXTRACT_USERS } from '../types'
 
 
 export const usersReducer = (state: [] | Array<usersType> = [], action: ExtractUsersActionTypes): (Array<usersType> | []) => {
