@@ -18,11 +18,18 @@ const extractUsers = (users: Array<usersType>) => ({
   users
 })
 
+const addKeyEditMode = (arr: Array<tasksType>): Array<tasksType> => {
+  for ( let task of arr ) {
+    task.editMode = false
+  }
+  return arr
+}
 
 export const thunkExtractTasks = (): ThunkAction<void, any, unknown, Action<any>> => async (dispatch) => {
   
   const response = await axios('http://jsonplaceholder.typicode.com/todos')
-  dispatch(extractTasks(response.data))
+  const result = addKeyEditMode(response.data)
+  dispatch(extractTasks(result))
 }
   
 export const thunkExtractUsers = (): ThunkAction<void, any, unknown, Action<any>> => async dispatch => {

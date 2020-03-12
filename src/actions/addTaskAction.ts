@@ -1,4 +1,4 @@
-import { Action } from 'redux'
+
 import { ADD_TASK } from '../types'
 
 import { AddTaskTypes } from '../types'
@@ -10,7 +10,8 @@ export function addTaskAction (task: string, userId: number, id: number):AddTask
       userId,
       id,
       title: task,
-      completed: false
+      completed: false,
+      editMode: false
     }
   }
 }

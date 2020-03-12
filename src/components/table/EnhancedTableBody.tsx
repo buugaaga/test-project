@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
+import { editModeAction } from '../../actions/editModeAction'
 // import { EnhacedTableRow } from './EnhancedTableRow'
 // import { updateTaskAction } from '../../actions/updateTaskAction'
 
@@ -20,12 +21,12 @@ interface PropsType {
 export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleChange, onToggleCompleted }) => {
 
   const dispatch = useDispatch()
-  const isEditMode = false
+  
 
   const onToggleEditMode = (id: number):void => {
-    console.log(id)
+    dispatch(editModeAction(id, true))
   }
-
+  
   return (
     <TableBody>
     {
@@ -39,7 +40,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleCha
           <TableRow key={task.id}>
 
             <TableCell>
-              { isEditMode ?
+              { task.editMode ?
                   <Checkbox 
                     checked={task.completed}  
                     onClick={onToggleCompleted}
@@ -58,7 +59,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleCha
             </TableCell>
 
             <TableCell align="center">
-              { isEditMode ? 
+              { task.editMode ? 
                   <Input
                     id={`${task.id}`}
                     value={task.title}

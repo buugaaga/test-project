@@ -1,8 +1,8 @@
-import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask } from '../types' 
-import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK } from '../types'
+import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask, EditModeAction } from '../types' 
+import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK, EDIT_MODE } from '../types'
 
 
-type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask
+type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask & EditModeAction
 
 
 export const tasksReducer = (state: any = [], action: ActionType): Array<tasksType> | [] => {
@@ -27,15 +27,6 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
           if(b.completed) return 1
           return 0
         }
-        // if(action.isCompleted) {
-        //   if(a.completed && !b.completed) return 1
-        //   if(a.completed && b.completed || !a.completed && !b.completed) return 0
-        //   if(!a.completed && b.completed) return -1
-        // } else {
-        //   if(a.completed && !b.completed) return -1
-        //   if(a.completed && b.completed || !a.completed && !b.completed) return 0
-        //   if(!a.completed && b.completed) return 1
-        // }
       })
       return [
         ...cloneState
@@ -52,6 +43,17 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
         return task
       }) 
       return cloneStateToUpdate
+    case EDIT_MODE:
+      const newArr = state.map( (item: tasksType): tasksType => {
+        if(item.id === action.id) {
+          return {
+            ...item,
+            editMode: action.editMode
+          }
+        } 
+        return item
+      })
+      return newArr
 
     default:
       return state
