@@ -16,24 +16,15 @@ interface PropsType {
   onToggleCompleted: React.MouseEventHandler
 }
 
-// interface getInitialValuesObjectType  { 
-//   task: string
-// }
-
-function getInitialValuesObject(taskArr: Array<tasksType>): any {
-  
-  const initialValuesObject: any = {}
-  for( let task of taskArr) {
-    initialValuesObject[`task${task.id}`] = task.title
-  }
-  return initialValuesObject
-}
 
 export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleChange, onToggleCompleted }) => {
 
   const dispatch = useDispatch()
   const isEditMode = false
 
+  const onToggleEditMode = (id: number):void => {
+    console.log(id)
+  }
 
   return (
     <TableBody>
@@ -79,7 +70,10 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleCha
               
             </TableCell>
             <TableCell>
-              <IconButton>
+              <IconButton 
+                id={`${task.id}`}
+                onClick={() => onToggleEditMode(task.id)}
+              >
                 <Edit />
               </IconButton>
             </TableCell>
