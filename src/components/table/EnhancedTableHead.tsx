@@ -23,8 +23,7 @@ export const EnhancedTableHead: React.FC<{}> = () => {
           готово
           <TableSortLabel 
             active
-            direction={ isCompleted ? 'asc' : 'desc'}
-            onClick={handleOrderByCompleted}
+            direction='asc'
           />
         </TableCell>
         <TableCell  align="center">имя</TableCell>
