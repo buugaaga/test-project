@@ -41,3 +41,9 @@ export interface ActionTypeIsCompleted {
   type: string
   isCompleted: boolean
 }
+
+export interface ActionTypeUpdateTask {
+  type: string
+  title: string
+  id: number | string
+}

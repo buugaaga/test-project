@@ -1,6 +1,5 @@
 import React from 'react'
 import { TableRow, TableCell, Checkbox, Input } from '@material-ui/core'
-import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
 
 import { tasksType } from '../../types'
@@ -8,20 +7,12 @@ import { tasksType } from '../../types'
 interface EnhacedTableRowType {
   task: tasksType
   userName: string
+  value: string
+  
 }
 
-export const EnhacedTableRow: React.FC<EnhacedTableRowType> = ({ task, userName }) => {
+export const EnhacedTableRow: React.FC<EnhacedTableRowType> = ({ task, userName,  value }) => {
   
-  const formik = useFormik({
-    initialValues: {
-      task: task.title
-    },
-    onSubmit:  (values) => {
-      console.log(values)
-    }
-  })
-
-
   return (
     <TableRow>
       <TableCell>
@@ -34,8 +25,8 @@ export const EnhacedTableRow: React.FC<EnhacedTableRowType> = ({ task, userName 
         </Link>
       </TableCell>
       <TableCell align="center">
-        <Input 
-          defaultValue={formik.values.task}
+        <Input  
+          value={value}
         />
       </TableCell>
     </TableRow>

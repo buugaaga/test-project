@@ -1,12 +1,14 @@
-import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted } from '../types' 
+import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask } from '../types' 
 
 export const EXTRACT_TASKS = 'EXTRACT_TASKS'
 export const ADD_TASK = 'ADD_TASK'
 export const ORDER_BY_COMPLETED = 'ORDER_BY_COMPLETED'
+export const UPDATE_TASK = 'UPDATE_TASK'
 
-type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted
+type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask
 
-export const tasksReducer = (state: [] | Array<tasksType> = [], action: ActionType): Array<tasksType> | [] => {
+
+export const tasksReducer = (state: any = [], action: ActionType): Array<tasksType> | [] => {
   switch (action.type) {
     case EXTRACT_TASKS:
       return [
@@ -22,19 +24,38 @@ export const tasksReducer = (state: [] | Array<tasksType> = [], action: ActionTy
       let cloneState = state.slice()
       cloneState.sort( (a: tasksType, b: tasksType): any => {
         if(action.isCompleted) {
-          if(a.completed && !b.completed) return 1
-          if(a.completed && b.completed || !a.completed && !b.completed) return 0
-          if(!a.completed && b.completed) return -1
+          if(a.completed) return 1
+          return 0
         } else {
-          if(a.completed && !b.completed) return -1
-          if(a.completed && b.completed || !a.completed && !b.completed) return 0
-          if(!a.completed && b.completed) return 1
+          if(b.completed) return 1
+          return 0
         }
-        
+        // if(action.isCompleted) {
+        //   if(a.completed && !b.completed) return 1
+        //   if(a.completed && b.completed || !a.completed && !b.completed) return 0
+        //   if(!a.completed && b.completed) return -1
+        // } else {
+        //   if(a.completed && !b.completed) return -1
+        //   if(a.completed && b.completed || !a.completed && !b.completed) return 0
+        //   if(!a.completed && b.completed) return 1
+        // }
       })
       return [
         ...cloneState
       ]
+
+    case UPDATE_TASK:    
+      const cloneStateToUpdate = state.map( (task: tasksType): tasksType => {
+        if(task.id === action.id) {
+          return {
+            ...task,
+            title: task.title
+          }
+        } 
+        return task
+      }) 
+      return cloneStateToUpdate
+
     default:
       return state
   }
@@ -42,44 +63,6 @@ export const tasksReducer = (state: [] | Array<tasksType> = [], action: ActionTy
 
 
 
-// const initialState:  initialStateType = {
-//   tasks: [],
-//   users: []
-// }
- 
-// single action for two requestn in server 
-// export function tasksReducer(state: initialStateType = initialState,  action: any) {
-//   switch (action.type) {
-//     case (typeof EXTRACT_DATAS):
-//       return {
-//         ...state,
-//         tasks: [
-//           ...state.tasks,
-//           ...action.tasks,
-//         ],
-//         users: [
-//           ...state.users,
-//           ...action.users
-//         ]
-//       }
-      
-//     case (typeof CHANGE_COMPLETE):
-//       return {
-//         ...state,
-//         tasks: [
-//           ...state.tasks.slice(0, action.id),
-//           { 
-//             ...state.tasks[action.id],
-//             completed: action.completed
-//           },
-//           ...state.tasks.slice(action.id + 1)
-//         ]
-//       }
-      
-//     default:
-//       return state
-//   }
-// } 
 
 
 
