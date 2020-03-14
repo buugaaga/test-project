@@ -1,11 +1,12 @@
-import React from 'react'
-import { TableBody, TableRow, TableCell, Checkbox, IconButton, Input } from '@material-ui/core'
-import { Edit, Done, CheckBoxOutlineBlank } from '@material-ui/icons'
+import React, { useRef} from 'react'
+import { TableBody, TableRow, TableCell, Checkbox, IconButton, Input, Icon } from '@material-ui/core'
+import { Edit, Done, CheckBoxOutlineBlank, DoneAll, Cancel } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
 import { editModeAction } from '../../actions/editModeAction'
+
 // import { EnhacedTableRow } from './EnhancedTableRow'
 // import { updateTaskAction } from '../../actions/updateTaskAction'
 
@@ -13,16 +14,26 @@ import { editModeAction } from '../../actions/editModeAction'
 interface PropsType {
   tasks: Array<tasksType>
   users: Array<usersType>
-  handleChange: React.ChangeEventHandler
-  onToggleCompleted: React.MouseEventHandler
 }
 
 
-export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleChange, onToggleCompleted }) => {
+export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
 
   const dispatch = useDispatch()
-  
 
+  const ref = useRef<HTMLInputElement>(null)
+
+  const handleDispatchButton = () => {
+
+
+    console.log(ref.current!.id)
+  }
+
+  const onToggleCompleted = (e: React.MouseEvent<HTMLButtonElement>): void => {
+
+    console.log(e.target)
+  }
+  
   const onToggleEditMode = (id: number):void => {
     dispatch(editModeAction(id, true))
   }
@@ -36,7 +47,9 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleCha
           return (itemUser.id === task.userId)
         })
         const userName: any = filteredUsersArr[0] && filteredUsersArr[0].name 
-        return (
+
+        if(id < 10)  return (
+
           <TableRow key={task.id}>
 
             <TableCell>
@@ -61,22 +74,38 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, handleCha
             <TableCell align="center">
               { task.editMode ? 
                   <Input
+                    multiline
+                    defaultValue={task.title}
                     id={`${task.id}`}
-                    value={task.title}
+                    inputRef={ref}
                     name="task"
-                    onChange={handleChange}
                   />
                 : task.title
               }
-              
             </TableCell>
             <TableCell>
-              <IconButton 
-                id={`${task.id}`}
-                onClick={() => onToggleEditMode(task.id)}
-              >
-                <Edit />
-              </IconButton>
+              {
+                task.editMode ? 
+                <>
+                  <IconButton
+                    onClick={handleDispatchButton}
+                  >
+                    <DoneAll />
+                  </IconButton>
+                  <IconButton>
+                    <Cancel />
+                  </IconButton>
+                </>
+                  
+                : 
+                  <IconButton 
+                    id={`${task.id}`}
+                    onClick={() => onToggleEditMode(task.id)}
+                  >
+                    <Edit />
+                  </IconButton>
+              }
+              
             </TableCell>
           </TableRow>
         )

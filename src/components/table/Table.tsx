@@ -23,14 +23,6 @@ interface propsType {
 
 export const BossTable: React.FC<propsType> = ({tasks, users}) => {
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-
-    console.log(e.target)
-  }
-
-  const onToggleCompleted = (e: React.MouseEvent<HTMLInputElement>): void => {
-    console.log(e.target)
-  }
 
   return (
     <SPaper elevation={3} >
@@ -40,8 +32,6 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
           <EnhancedTableBody 
             tasks={tasks} 
             users={users} 
-            handleChange={handleChange} 
-            onToggleCompleted={onToggleCompleted}
           />
         </STable>
       </TableContainer>
