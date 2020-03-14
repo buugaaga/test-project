@@ -1,5 +1,5 @@
-import React, { useRef} from 'react'
-import { TableBody, TableRow, TableCell, Checkbox, IconButton, Input, Icon } from '@material-ui/core'
+import React, { useRef, useState } from 'react'
+import { TableBody, TableRow, TableCell, Checkbox, IconButton, Input } from '@material-ui/core'
 import { Edit, Done, CheckBoxOutlineBlank, DoneAll, Cancel } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -17,26 +17,32 @@ interface PropsType {
   users: Array<usersType>
 }
 
-
 export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
+
+  const [ completed, setCompleted ] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
   const ref = useRef<HTMLInputElement>(null)
 
   const onToggleCompleted = (e: React.MouseEvent<HTMLButtonElement>): void => {
-
-    console.log(e.target)
+    setCompleted(!completed)
   }
   
-  const onToggleEditMode = (id: number | string, mode: boolean):void => {
+  const onToggleEditMode = (id: number | string, mode: boolean, completed?: boolean):void => {
+    //при включении режима настройки проверяю третий параметр  функции на наличие и задаю состояние задачи 
+    if(completed !== undefined) setCompleted(completed)
     dispatch(editModeAction(id, mode))
   }
 
   const handleDispatchButton = () => {
-    dispatch(updateTaskAction(ref.current!.value, ref.current!.id))
+    dispatch(updateTaskAction(ref.current!.value, ref.current!.id, completed))
     onToggleEditMode(ref.current!.id, false)
     console.log(ref.current!.value)
+  }
+
+  const handleCancelButton = () => {
+    onToggleEditMode(ref.current!.id, false)
   }
   
   return (
@@ -56,7 +62,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
             <TableCell>
               { task.editMode ?
                   <Checkbox 
-                    checked={task.completed}  
+                    checked={completed}  
                     onClick={onToggleCompleted}
                   />
                 : task.completed ? 
@@ -93,7 +99,9 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
                   >
                     <DoneAll />
                   </IconButton>
-                  <IconButton>
+                  <IconButton
+                    onClick={handleCancelButton}
+                  >
                     <Cancel />
                   </IconButton>
                 </>
@@ -101,7 +109,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
                 : 
                   <IconButton 
                     id={`${task.id}`}
-                    onClick={() => onToggleEditMode(task.id, true)}
+                    onClick={() => onToggleEditMode(task.id, true, task.completed)}
                   >
                     <Edit />
                   </IconButton>

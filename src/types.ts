@@ -54,6 +54,7 @@ export interface ActionTypeUpdateTask {
   type: string
   title: string
   id: number | string
+  completed: boolean
 }
 
 export interface EditModeAction {

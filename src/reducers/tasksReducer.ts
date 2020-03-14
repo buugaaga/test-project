@@ -33,11 +33,13 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
       ]
 
     case UPDATE_TASK:    
+    // нахожу по id задачу и обноваляю ее title и completed
       const cloneStateToUpdate = state.map( (task: tasksType): tasksType => {
-        if(task.id == action.id) {
+        if(task.id === +action.id) {
           return {
             ...task,
-            title: action.title
+            title: action.title,
+            completed: action.completed
           }
         } 
         return task
@@ -46,11 +48,13 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
     case EDIT_MODE:
       const newArr = state.map( (item: tasksType): tasksType => {
         if(item.id === action.id) {
+          // включаем режим редактирования у одной задачи 
           return {
             ...item,
             editMode: action.editMode
           }
         } 
+        // отключаем моды у всех остальных задач
         return {
           ...item,
           editMode: false
