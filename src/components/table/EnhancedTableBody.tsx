@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
 import { editModeAction } from '../../actions/editModeAction'
+import { updateTaskAction } from '../../actions/updateTaskAction'
 
 // import { EnhacedTableRow } from './EnhancedTableRow'
 // import { updateTaskAction } from '../../actions/updateTaskAction'
@@ -23,19 +24,19 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
 
   const ref = useRef<HTMLInputElement>(null)
 
-  const handleDispatchButton = () => {
-
-
-    console.log(ref.current!.id)
-  }
-
   const onToggleCompleted = (e: React.MouseEvent<HTMLButtonElement>): void => {
 
     console.log(e.target)
   }
   
-  const onToggleEditMode = (id: number):void => {
-    dispatch(editModeAction(id, true))
+  const onToggleEditMode = (id: number | string, mode: boolean):void => {
+    dispatch(editModeAction(id, mode))
+  }
+
+  const handleDispatchButton = () => {
+    dispatch(updateTaskAction(ref.current!.value, ref.current!.id))
+    onToggleEditMode(ref.current!.id, false)
+    console.log(ref.current!.value)
   }
   
   return (
@@ -100,7 +101,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
                 : 
                   <IconButton 
                     id={`${task.id}`}
-                    onClick={() => onToggleEditMode(task.id)}
+                    onClick={() => onToggleEditMode(task.id, true)}
                   >
                     <Edit />
                   </IconButton>

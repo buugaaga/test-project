@@ -34,10 +34,10 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
 
     case UPDATE_TASK:    
       const cloneStateToUpdate = state.map( (task: tasksType): tasksType => {
-        if(task.id === action.id) {
+        if(task.id == action.id) {
           return {
             ...task,
-            title: task.title
+            title: action.title
           }
         } 
         return task
@@ -51,7 +51,10 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
             editMode: action.editMode
           }
         } 
-        return item
+        return {
+          ...item,
+          editMode: false
+        }
       })
       return newArr
 
