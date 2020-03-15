@@ -21,15 +21,19 @@ export const EnhancedTableHead: React.FC<{}> = () => {
     <TableHead>
       <TableRow >
         <TableCell padding="checkbox">
-          готово
-          <TableSortLabel 
-            active
-            direction={ isCompleted ? 'asc' : 'desc'}
-            onClick={handleOrderByCompleted}
-          />
+          <>
+            <b>готово</b>
+            <TableSortLabel 
+              active
+              direction={ isCompleted ? 'asc' : 'desc'}
+              onClick={handleOrderByCompleted}
+            />
+          </>
+         
         </TableCell>
-        <TableCell  align="center">имя</TableCell>
-        <TableCell align="center">задача</TableCell>
+        <TableCell  align="center"><b>имя</b></TableCell>
+        <TableCell align="center"><b>задача</b></TableCell>
+        <TableCell align="center"><b>редактировать</b></TableCell>
       </TableRow>
     </TableHead>
   )

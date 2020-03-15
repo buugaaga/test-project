@@ -70,7 +70,6 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
                     <Done color='primary' /> 
                   : <CheckBoxOutlineBlank />
               }
-
             </TableCell>
 
             <TableCell align="center">
