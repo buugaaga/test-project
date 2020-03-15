@@ -1,8 +1,8 @@
-import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask, EditModeAction } from '../types' 
+import { tasksType, ExtractTasksActionTypes, AddTaskTypes, ActionTypeIsCompleted, ActionTypeUpdateTask, EditModeAction, ActionTypeOrderByUser, ORDER_TASK_BY_USER } from '../types' 
 import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK, EDIT_MODE } from '../types'
 
 
-type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask & EditModeAction
+type ActionType = ExtractTasksActionTypes & AddTaskTypes & ActionTypeIsCompleted & ActionTypeUpdateTask & EditModeAction & ActionTypeOrderByUser
 
 
 export const tasksReducer = (state: any = [], action: ActionType): Array<tasksType> | [] => {
@@ -19,13 +19,12 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
       ]
     case ORDER_BY_COMPLETED:
       let cloneState = state.slice()
-      cloneState.sort( (a: tasksType, b: tasksType): any => {
+      cloneState.sort( (a: tasksType, b: tasksType): number | undefined => {
         if(!action.isCompleted) {
           if(!a.completed && b.completed) return 1
           if(a.completed && b.completed) return 0
           if(a.completed && !b.completed) return -1
-        } 
-        if(action.isCompleted) {
+        } else {
           if(a.completed && !b.completed) return 1
           if(a.completed && b.completed) return 0
           if(!a.completed && b.completed) return -1
@@ -64,7 +63,17 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
         }
       })
       return newArr
-
+    
+    case ORDER_TASK_BY_USER:
+      const updatedTasks = []
+      for( let user of action.users) {
+        for( let task of state) {
+          if(user.id === task.userId) {
+            updatedTasks.push(task)
+          }
+        }
+      }
+      return updatedTasks
     default:
       return state
   }

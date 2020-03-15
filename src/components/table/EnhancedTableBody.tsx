@@ -8,9 +8,6 @@ import { tasksType, usersType } from '../../types'
 import { editModeAction } from '../../actions/editModeAction'
 import { updateTaskAction } from '../../actions/updateTaskAction'
 
-// import { EnhacedTableRow } from './EnhancedTableRow'
-// import { updateTaskAction } from '../../actions/updateTaskAction'
-
 
 interface PropsType {
   tasks: Array<tasksType>
@@ -39,88 +36,86 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
   const handleDispatchButton = () => {
     dispatch(updateTaskAction(ref.current!.value, ref.current!.id, completed))
     onToggleEditMode(ref.current!.id, false)
-    console.log(ref.current!.value)
   }
 
   const handleCancelButton = () => {
     onToggleEditMode(ref.current!.id, false)
   }
   
+  const rowsOfTasks = tasks.map( (task: tasksType) => {
+    // нахожу юзера по id
+      const findedUserObject =  users.find( (itemUser: usersType ) => {
+        return (itemUser.id === task.userId)
+      })
+      const userName: string | undefined = findedUserObject && findedUserObject!.name 
+
+      if(task.title.includes(search)) return (
+        <TableRow key={task.id}>
+          <TableCell>
+            { task.editMode ?
+                <Checkbox 
+                  checked={completed}  
+                  onClick={onToggleCompleted}
+                />
+              : task.completed ? 
+                  <Done color='primary' /> 
+                : <CheckBoxOutlineBlank />
+            }
+          </TableCell>
+
+          <TableCell align="center">
+            <Link to={`/form/${task.userId}`}>
+              {userName}
+            </Link>
+          </TableCell>
+
+          <TableCell align="center">
+            { task.editMode ? 
+                <Input
+                  multiline
+                  defaultValue={task.title}
+                  id={`${task.id}`}
+                  inputRef={ref}
+                  name="task"
+                />
+              : task.title
+            }
+          </TableCell>
+          <TableCell>
+            {
+              task.editMode ? 
+              <>
+                <IconButton
+                  onClick={handleDispatchButton}
+                >
+                  <DoneAll />
+                </IconButton>
+                <IconButton
+                  onClick={handleCancelButton}
+                >
+                  <Cancel />
+                </IconButton>
+              </>
+                
+              : 
+                <IconButton 
+                  id={`${task.id}`}
+                  onClick={() => onToggleEditMode(task.id, true, task.completed)}
+                >
+                  <Edit />
+                </IconButton>
+            }
+          </TableCell>
+        </TableRow>
+      )
+    })
+  
   return (
     <TableBody>
     {
-      tasks.map( (task: tasksType, id: number) => {
-      // фильтруем массив по id и возвращаем поле name из единственного значения массива
-        const filteredUsersArr =  users.filter( (itemUser: usersType ) => {
-          return (itemUser.id === task.userId)
-        })
-        const userName: any = filteredUsersArr[0] && filteredUsersArr[0].name 
-
-        if(task.title.includes(search)) return (
-        
-          <TableRow key={task.id}>
-
-            <TableCell>
-              { task.editMode ?
-                  <Checkbox 
-                    checked={completed}  
-                    onClick={onToggleCompleted}
-                  />
-                : task.completed ? 
-                    <Done color='primary' /> 
-                  : <CheckBoxOutlineBlank />
-              }
-            </TableCell>
-
-            <TableCell align="center">
-              <Link to={`/form/${task.userId}`}>
-                {userName}
-              </Link>
-            </TableCell>
-
-            <TableCell align="center">
-              { task.editMode ? 
-                  <Input
-                    multiline
-                    defaultValue={task.title}
-                    id={`${task.id}`}
-                    inputRef={ref}
-                    name="task"
-                  />
-                : task.title
-              }
-            </TableCell>
-            <TableCell>
-              {
-                task.editMode ? 
-                <>
-                  <IconButton
-                    onClick={handleDispatchButton}
-                  >
-                    <DoneAll />
-                  </IconButton>
-                  <IconButton
-                    onClick={handleCancelButton}
-                  >
-                    <Cancel />
-                  </IconButton>
-                </>
-                  
-                : 
-                  <IconButton 
-                    id={`${task.id}`}
-                    onClick={() => onToggleEditMode(task.id, true, task.completed)}
-                  >
-                    <Edit />
-                  </IconButton>
-              }
-              
-            </TableCell>
-          </TableRow>
-        )
-      })
+      rowsOfTasks 
     }
-</TableBody>
+   </TableBody>
     
     
   )

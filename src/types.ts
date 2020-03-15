@@ -6,6 +6,8 @@ const ORDER_BY_COMPLETED = 'ORDER_BY_COMPLETED'
 const UPDATE_TASK = 'UPDATE_TASK'
 const EXTRACT_USERS = 'EXTRACT_USERS'
 const EDIT_MODE = 'EDIT_MODE'
+const ORDER_BY_USER_NAME = 'ORDER_BY_USER_NAME'
+const ORDER_TASK_BY_USER = 'ORDER_TASK_BY_USER'
 
 
 export interface tasksType {
@@ -25,19 +27,19 @@ export interface usersType {
 }
 
 export interface initialStateType {
-  tasks: Array<tasksType> | []
+  tasks: tasksType[] | []
   users: any
   isCompleted?: boolean
 }
 
 export interface ExtractUsersActionTypes {
   type: string
-  users: Array<usersType>
+  users: usersType[]
 }
 
 export interface ExtractTasksActionTypes {
   type: string
-  tasks: Array<tasksType>
+  tasks: tasksType[]
 }
 
 export interface AddTaskTypes {
@@ -57,10 +59,20 @@ export interface ActionTypeUpdateTask {
   completed: boolean
 }
 
+export interface ActionTypeOrderByUser {
+  type: string
+  users: usersType[]
+}
+
 export interface EditModeAction {
   type: string
   id: number
   editMode: boolean
+}
+
+export interface OrderByUserName {
+  type: string
+  byUserSortDirection: boolean
 }
 
 export { 
@@ -70,5 +82,7 @@ export {
   ORDER_BY_COMPLETED,
   UPDATE_TASK,
   EXTRACT_USERS,
-  EDIT_MODE
+  EDIT_MODE,
+  ORDER_BY_USER_NAME,
+  ORDER_TASK_BY_USER
 }

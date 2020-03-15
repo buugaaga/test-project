@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, IconButton } from '@material-ui/core'
+import { Input } from '@material-ui/core'
 import { Search } from '@material-ui/icons'
 
 interface ISearchBarProps {

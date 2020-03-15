@@ -18,7 +18,7 @@ const extractUsers = (users: Array<usersType>) => ({
   users
 })
 
-const addKeyEditMode = (arr: Array<tasksType>): Array<tasksType> => {
+const addKeyEditMode = (arr: tasksType[]): tasksType[] => {
   for ( let task of arr ) {
     task.editMode = false
   }

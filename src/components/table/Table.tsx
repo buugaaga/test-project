@@ -34,7 +34,9 @@ export const BossTable: React.FC<propsType> = ({tasks, users}) => {
       />
       <TableContainer>
         <STable>
-          <EnhancedTableHead />
+          <EnhancedTableHead 
+            users={users}
+          />
           <EnhancedTableBody 
             tasks={tasks} 
             users={users} 
