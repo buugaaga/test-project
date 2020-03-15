@@ -15,9 +15,10 @@ import { updateTaskAction } from '../../actions/updateTaskAction'
 interface PropsType {
   tasks: Array<tasksType>
   users: Array<usersType>
+  search: string
 }
 
-export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
+export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search }) => {
 
   const [ completed, setCompleted ] = useState<boolean>(false)
 
@@ -55,8 +56,8 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users }) => {
         })
         const userName: any = filteredUsersArr[0] && filteredUsersArr[0].name 
 
-        if(id < 10)  return (
-
+        if(task.title.includes(search)) return (
+        
           <TableRow key={task.id}>
 
             <TableCell>
