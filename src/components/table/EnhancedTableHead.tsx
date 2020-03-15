@@ -13,6 +13,7 @@ export const EnhancedTableHead: React.FC<{}> = () => {
   const dispatch = useDispatch()
   const handleOrderByCompleted = () => {
     dispatch(changeIsCompleted(!isCompleted))
+    
     dispatch(orderByCompletedAction(isCompleted))
   }
 
@@ -23,7 +24,8 @@ export const EnhancedTableHead: React.FC<{}> = () => {
           готово
           <TableSortLabel 
             active
-            direction='asc'
+            direction={ isCompleted ? 'asc' : 'desc'}
+            onClick={handleOrderByCompleted}
           />
         </TableCell>
         <TableCell  align="center">имя</TableCell>

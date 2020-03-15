@@ -20,12 +20,15 @@ export const tasksReducer = (state: any = [], action: ActionType): Array<tasksTy
     case ORDER_BY_COMPLETED:
       let cloneState = state.slice()
       cloneState.sort( (a: tasksType, b: tasksType): any => {
+        if(!action.isCompleted) {
+          if(!a.completed && b.completed) return 1
+          if(a.completed && b.completed) return 0
+          if(a.completed && !b.completed) return -1
+        } 
         if(action.isCompleted) {
-          if(a.completed) return 1
-          return 0
-        } else {
-          if(b.completed) return 1
-          return 0
+          if(a.completed && !b.completed) return 1
+          if(a.completed && b.completed) return 0
+          if(!a.completed && b.completed) return -1
         }
       })
       return [
