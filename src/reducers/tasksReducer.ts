@@ -2,7 +2,7 @@ import { tasksType,  IExtractTasksActionTypes, IAddTaskTypes, IActionTypeIsCompl
 import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK, EDIT_MODE, ORDER_TASK_BY_USER, REMOVE_TASK } from '../types'
 
 
-type ActionType =  IExtractTasksActionTypes | IAddTaskTypes | IActionTypeIsCompleted | IActionTypeUpdateTask | IEditModeAction | IActionTypeOrderByUser | IOrderByCompletedAction | IRemoveTask
+type ActionType =  IExtractTasksActionTypes | IAddTaskTypes | IActionTypeIsCompleted | IActionTypeUpdateTask | IEditModeAction | IActionTypeOrderByUser | IOrderByCompletedAction | IRemoveTask 
 
 
 export const tasksReducer = (state: tasksType[] | [] = [], action: ActionType): tasksType[] | [] => {
