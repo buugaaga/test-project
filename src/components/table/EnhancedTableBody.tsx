@@ -59,7 +59,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
     {
       tasks.map( (task: tasksType) => {
         // нахожу юзера по id
-          const findedUserObject =  users.find( (itemUser: usersType ) => {
+          const findedUserObject =  users.find( (itemUser: usersType ):boolean => {
             return (itemUser.id === task.userId)
           })
           const userName: string | undefined = findedUserObject && findedUserObject!.name 
@@ -129,7 +129,11 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
               </TableCell>
             </TableRow>
           )
-        })}
+          return null
+        })
+        
+      }
+
       </TableBody>    
     )
   

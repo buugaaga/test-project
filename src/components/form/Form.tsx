@@ -31,14 +31,14 @@ const SButton = styled(Button)({
 })
 
 interface ParamsType {
-  userId: any
+  userId: string | undefined
 }
 
 export const FormPage: React.FC<any> = ({tasks, users}) => {
 
-  const { userId }: any = useParams<ParamsType>()
-  const userName: string = users[userId-1] && users[userId-1].name
-  const userTasks: Array<tasksType> = tasks.filter( (task: any) => task.userId == userId )
+  const { userId }: { userId: string | undefined } = useParams<ParamsType>()
+  const userName: string = users[+userId-1] && users[+userId-1].name
+  const userTasks: Array<tasksType> = tasks.filter( (task: any) => task.userId === +userId )
 
   const dispatch = useDispatch()
 
@@ -50,8 +50,7 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
       task: Yup.string().min(2, 'нужно больше символов').max(100, 'хватит уже')
     }),
     onSubmit: values => {
-      console.log(values)
-      dispatch(addTaskAction(values.task, userId, (tasks.length - 1)))
+      dispatch(addTaskAction(values.task, +userId, (tasks.length - 1)))
       formik.setValues({task: ''})
     }
   })

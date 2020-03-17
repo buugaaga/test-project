@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 import Table from './components/table'
 import Form from './components/form'
 import { thunkExtractTasks, thunkExtractUsers} from './actions/extractDatasAction'
-import { tasksType, usersType, IInitialStateType } from './types'
+import { usersType, IInitialStateType } from './types'
 
 const SContainer = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const App = () => {
   useEffect( () => {
     dispatch(thunkExtractTasks())
     dispatch(thunkExtractUsers())
-  }, [])
+  }, [dispatch])
 
   return (
     <SContainer>
