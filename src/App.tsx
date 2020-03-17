@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 import Table from './components/table'
 import Form from './components/form'
 import { thunkExtractTasks, thunkExtractUsers} from './actions/extractDatasAction'
-import { tasksType, usersType, initialStateType } from './types'
+import { tasksType, usersType, IInitialStateType } from './types'
 
 const SContainer = styled.div`
   display: flex;
@@ -18,8 +18,8 @@ const SContainer = styled.div`
 const App = () => {
 
   // используем хуки react-redux. store лежит в provider index.ts
-  const tasks: Array<any> = useSelector( (state: initialStateType) => state.tasks)  
-  const users: Array<usersType> = useSelector( (state: initialStateType) => state.users)
+  const tasks: Array<any> = useSelector( (state: IInitialStateType) => state.tasks)  
+  const users: Array<usersType> = useSelector( (state: IInitialStateType) => state.users)
  
   const dispatch = useDispatch()
   useEffect( () => {

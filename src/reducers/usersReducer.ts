@@ -1,7 +1,7 @@
-import  { usersType, ExtractUsersActionTypes, OrderByUserName } from '../types'
+import  { usersType, IExtractUsersActionTypes, IOrderByUserName } from '../types'
 import { EXTRACT_USERS, ORDER_BY_USER_NAME } from '../types'
 
-type ActionType = ExtractUsersActionTypes & OrderByUserName
+type ActionType = IExtractUsersActionTypes | IOrderByUserName
 
 export const usersReducer = (state: [] | Array<usersType> = [], action: ActionType): (Array<usersType> | []) => {
   switch (action.type) {

@@ -1,9 +1,9 @@
 
 import { ADD_TASK } from '../types'
 
-import { AddTaskTypes } from '../types'
+import { IAddTaskTypes } from '../types'
 
-export function addTaskAction (task: string, userId: number, id: number):AddTaskTypes  {
+export function addTaskAction (task: string, userId: number, id: number): IAddTaskTypes  {
   return {
     type: ADD_TASK,
     payload: {

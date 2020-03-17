@@ -8,12 +8,12 @@ import { EXTRACT_USERS } from '../types'
 
 import { tasksType, usersType } from '../types'
 
-const extractTasks = (tasks: Array<tasksType>) => ({
+export const extractTasks = (tasks: tasksType[]) => ({
   type:  EXTRACT_TASKS,
   tasks
 })
 
-const extractUsers = (users: Array<usersType>) => ({
+const extractUsers = (users: usersType[]) => ({
   type: EXTRACT_USERS,
   users
 })

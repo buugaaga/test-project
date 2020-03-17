@@ -14,3 +14,10 @@
 
 По максимуму использовал хуки.
 
+Проблемы, с которыми столкнулся:
+
+* Свойста экшенов ts не видит, когда возвращает новый стейт;
+  Решение: 
+    В типы экщенов `interface ExtractActionType { type: string }` надо предавать конкретное значение `interface ExtractActionType { type: typeof EXTRACT_DATA }`;
+
+

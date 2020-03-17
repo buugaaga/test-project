@@ -1,4 +1,5 @@
 
+
 const IS_COMPLETED = 'IS_COMPLETED'
 const EXTRACT_TASKS = 'EXTRACT_TASKS'
 const ADD_TASK = 'ADD_TASK'
@@ -26,53 +27,58 @@ export interface usersType {
   addres: any
 }
 
-export interface initialStateType {
+export interface IInitialStateType {
   tasks: tasksType[] | []
-  users: any
+  users: usersType[]
   isCompleted?: boolean
 }
 
-export interface ExtractUsersActionTypes {
-  type: string
+export type IExtractUsersActionTypes = {
+  type: typeof EXTRACT_USERS
   users: usersType[]
 }
 
-export interface ExtractTasksActionTypes {
-  type: string
+export type IExtractTasksActionTypes = {
+  type: typeof EXTRACT_TASKS
   tasks: tasksType[]
 }
 
-export interface AddTaskTypes {
-  type: string
+export interface IAddTaskTypes {
+  type: typeof ADD_TASK
   payload: tasksType
 }
 
-export interface ActionTypeIsCompleted {
-  type: string
+export interface IActionTypeIsCompleted {
+  type: typeof IS_COMPLETED
   isCompleted: boolean
 }
 
-export interface ActionTypeUpdateTask {
-  type: string
+export interface IActionTypeUpdateTask {
+  type: typeof UPDATE_TASK
   title: string
   id: number | string
   completed: boolean
 }
 
-export interface ActionTypeOrderByUser {
-  type: string
+export interface IActionTypeOrderByUser {
+  type: typeof ORDER_TASK_BY_USER
   users: usersType[]
 }
 
-export interface EditModeAction {
-  type: string
+export interface IEditModeAction {
+  type: typeof EDIT_MODE
   id: number
   editMode: boolean
 }
 
-export interface OrderByUserName {
-  type: string
+export interface IOrderByUserName {
+  type: typeof ORDER_BY_USER_NAME
   byUserSortDirection: boolean
+}
+
+export interface IOrderByCompletedAction {
+  type: typeof ORDER_BY_COMPLETED
+  isCompleted: boolean
 }
 
 export { 
