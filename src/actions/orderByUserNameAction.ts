@@ -1,4 +1,4 @@
-import { ORDER_BY_USER_NAME, ORDER_TASK_BY_USER, usersType } from '../types'
+import { ORDER_BY_USER_NAME, ORDER_TASK_BY_USER, usersType, AppThunk } from '../types'
 
 export const orderByUserNameAction = (byUserSortDirection: boolean) => ({
   type: ORDER_BY_USER_NAME,
@@ -10,8 +10,8 @@ export const orderTaskByUserNameAction = (users: usersType[]) => ({
   users: users
 })
 
-export const thunkOrderByUserNameAction = (byUserSortDirection: boolean) => (dispatch: any, getState: any) => {
-  dispatch(orderByUserNameAction(byUserSortDirection))
+export const thunkOrderByUserNameAction = (isAscDirection: boolean): AppThunk => (dispatch, getState) => {
+  dispatch(orderByUserNameAction(isAscDirection))
   const { users } = getState()
   dispatch(orderTaskByUserNameAction(users))
 }

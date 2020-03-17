@@ -1,3 +1,6 @@
+import { ThunkAction } from "redux-thunk"
+import { RootState } from "./reducers/rootReducer"
+import { Action } from "redux"
 
 
 const IS_COMPLETED = 'IS_COMPLETED'
@@ -80,6 +83,13 @@ export interface IOrderByCompletedAction {
   type: typeof ORDER_BY_COMPLETED
   isCompleted: boolean
 }
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>
 
 export { 
   IS_COMPLETED,  

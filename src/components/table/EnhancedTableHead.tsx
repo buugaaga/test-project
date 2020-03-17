@@ -16,7 +16,7 @@ export const EnhancedTableHead: React.FC<IEnhancedTableHead> = ({ users }) => {
 
   const isCompleted = useSelector( (state: RootState): boolean => state.isCompleted)
 
-  const [ byUserSortDirection, setByUserSortDirection ] = useState(false)
+  const [ isAscDirection, setAsctDirection ] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -26,8 +26,8 @@ export const EnhancedTableHead: React.FC<IEnhancedTableHead> = ({ users }) => {
   }
   
   const handleOrderByName = () => {
-    setByUserSortDirection(!byUserSortDirection)
-    dispatch(thunkOrderByUserNameAction(byUserSortDirection))
+    setAsctDirection(!isAscDirection)
+    dispatch(thunkOrderByUserNameAction(isAscDirection))
   }
 
   return (
@@ -48,7 +48,7 @@ export const EnhancedTableHead: React.FC<IEnhancedTableHead> = ({ users }) => {
           <b>имя</b>
           <TableSortLabel 
               active
-              direction={ byUserSortDirection ? 'asc' : 'desc'}
+              direction={ isAscDirection ? 'asc' : 'desc'}
               onClick={handleOrderByName}
             />
         </TableCell>

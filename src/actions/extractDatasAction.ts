@@ -1,8 +1,7 @@
-import { Action } from 'redux'
-import { ThunkAction } from 'redux-thunk'
+
 import axios from 'axios'
 
-import { EXTRACT_TASKS } from '../types'
+import { EXTRACT_TASKS, AppThunk } from '../types'
 import { EXTRACT_USERS } from '../types'
 
 
@@ -25,14 +24,14 @@ const addKeyEditMode = (arr: tasksType[]): tasksType[] => {
   return arr
 }
 
-export const thunkExtractTasks = (): ThunkAction<void, any, unknown, Action<any>> => async (dispatch) => {
+export const thunkExtractTasks = (): AppThunk => async (dispatch) => {
   
   const response = await axios('http://jsonplaceholder.typicode.com/todos')
   const result = addKeyEditMode(response.data)
   dispatch(extractTasks(result))
 }
   
-export const thunkExtractUsers = (): ThunkAction<void, any, unknown, Action<any>> => async dispatch => {
+export const thunkExtractUsers = (): AppThunk => async dispatch => {
   const response = await axios('http://jsonplaceholder.typicode.com/users')
   dispatch(extractUsers(response.data))
 }
