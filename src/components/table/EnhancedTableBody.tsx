@@ -104,7 +104,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
                     <IconButton
                       onClick={handleDispatchButton}
                     >
-                      <DoneAll />
+                      <DoneAll color="primary" />
                     </IconButton>
                     <IconButton
                       onClick={handleCancelButton}
@@ -114,7 +114,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
                     <IconButton
                       onClick={handleRemove}
                     >
-                      <Delete />
+                      <Delete color="error" />
                     </IconButton>
                   </>
                     

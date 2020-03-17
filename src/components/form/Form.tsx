@@ -7,7 +7,7 @@ import {
 } from 'formik'
 import { TextField, Button } from '@material-ui/core'
 import { IconButton } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import { Delete, Done } from '@material-ui/icons'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 
@@ -92,6 +92,7 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
               >
                 <Delete />
               </IconButton>
+              { task.completed ? <Done color="action" /> : null }
             </li>
           )).reverse()}
         </ol>
