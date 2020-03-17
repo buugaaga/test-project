@@ -1,17 +1,18 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import styledEm from '@emotion/styled'
+import { styled } from '@material-ui/core/styles'
 import { Link, useParams } from 'react-router-dom'
 import { 
-  useFormik, setNestedObjectValues
+  useFormik
 } from 'formik'
 import { TextField, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 
-import { tasksType, usersType } from '../../types'
+import { tasksType } from '../../types'
 import { addTaskAction } from '../../actions/addTaskAction'
 
-const SLink = styled(Link)`
+const SLink = styledEm(Link)`
   position: absolute;
   top: 20px;
   left: 20px;
@@ -21,6 +22,13 @@ const SLink = styled(Link)`
   border-radius: 5px;
   text-decoration: none;
 `
+const SButton = styled(Button)({
+  marginTop: '20px',
+  
+})
+  
+
+
 interface ParamsType {
   userId: any
 }
@@ -50,7 +58,7 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
       formik.setValues({task: ''})
     }
   })
-  console.log(formik)
+  // console.log(formik)
   return (
     <div>
       <SLink to='/'>Домой</SLink>
@@ -66,15 +74,17 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
           rows={3}
           variant="outlined"
           placeholder="напишите задачу"
+          error={ (formik.touched.task && formik.errors.task) ? true : false }
+          required
         />
-        { formik.touched.task && formik.errors.task ? (<div>{formik.errors.task}</div>) : null } 
+        {/* { formik.touched.task && formik.errors.task ? (<div>{formik.errors.task}</div>) : null }  */}
         <br/>
-        <Button
+        <SButton
           type="submit"
           variant="contained"
         >
           Добавить задачу
-        </Button>
+        </SButton>
 
         <ol reversed>
           {userTasks.map( (task: tasksType) => (

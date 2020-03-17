@@ -24,5 +24,5 @@
   Решение:
     Использовал redux-thunk для синхроннго действия. Код находится в `/src/actions/orderByUserNameAction`.
 
-
+* Компоненты *material-ui* не стилизуются с помощью *@emotion/styled* `styled(Button)`. Можно конечно применить глобальные стили, но я решил сделать как в документации и установил *materil-ui/styles* и ииспользовал аналог *styled* `styled(Button)({ margin: 20px;})`.
 
