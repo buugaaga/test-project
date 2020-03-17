@@ -50,7 +50,7 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
       task: Yup.string().min(2, 'нужно больше символов').max(100, 'хватит уже')
     }),
     onSubmit: values => {
-      dispatch(addTaskAction(values.task, +userId, (tasks.length - 1)))
+      dispatch(addTaskAction(values.task, +userId, (tasks[tasks.length - 1].id + 1)))
       formik.setValues({task: ''})
     }
   })
