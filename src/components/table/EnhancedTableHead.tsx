@@ -3,7 +3,7 @@ import { TableHead, TableRow, TableCell, TableSortLabel } from '@material-ui/cor
 import { useDispatch, useSelector } from 'react-redux'
 
 import { orderByCompletedAction } from '../../actions/orderByCompletedAction'
-import { orderByUserNameAction, orderTaskByUserNameAction } from '../../actions/orderByUserNameAction'
+import { thunkOrderByUserNameAction } from '../../actions/orderByUserNameAction'
 import { changeIsCompleted } from '../../actions/changeIsCompleted'
 import { RootState } from '../../reducers/rootReducer'
 import { usersType } from '../../types'
@@ -27,8 +27,7 @@ export const EnhancedTableHead: React.FC<IEnhancedTableHead> = ({ users }) => {
   
   const handleOrderByName = () => {
     setByUserSortDirection(!byUserSortDirection)
-    dispatch(orderByUserNameAction(byUserSortDirection))
-    dispatch(orderTaskByUserNameAction(users))
+    dispatch(thunkOrderByUserNameAction(byUserSortDirection))
   }
 
   return (

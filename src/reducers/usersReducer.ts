@@ -11,8 +11,8 @@ export const usersReducer = (state: [] | Array<usersType> = [], action: ActionTy
         ...action.users
       ]
     case ORDER_BY_USER_NAME:
-      const cloneStateTasksForOrder = state.slice()
-      cloneStateTasksForOrder.sort( (a: usersType, b: usersType): number => {
+      const cloneStateUsersForOrder = state.slice()
+      cloneStateUsersForOrder.sort( (a: usersType, b: usersType): number => {
         if(action.byUserSortDirection) {
           if(a.name > b.name) return 1
           if(a.name < b.name) return -1
@@ -23,7 +23,7 @@ export const usersReducer = (state: [] | Array<usersType> = [], action: ActionTy
           return 0
         }
       })
-      return cloneStateTasksForOrder
+      return cloneStateUsersForOrder
     default:
       return state
   }

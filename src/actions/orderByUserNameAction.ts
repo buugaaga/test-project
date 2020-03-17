@@ -10,3 +10,8 @@ export const orderTaskByUserNameAction = (users: usersType[]) => ({
   users: users
 })
 
+export const thunkOrderByUserNameAction = (byUserSortDirection: boolean) => (dispatch: any, getState: any) => {
+  dispatch(orderByUserNameAction(byUserSortDirection))
+  const { users } = getState()
+  dispatch(orderTaskByUserNameAction(users))
+}

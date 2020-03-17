@@ -18,6 +18,11 @@
 
 * Свойста экшенов ts не видит, когда возвращает новый стейт;
   Решение: 
-    В типы экщенов `interface ExtractActionType { type: string }` надо предавать конкретное значение `interface ExtractActionType { type: typeof EXTRACT_DATA }`;
+    В типы экшенов `interface ExtractActionType { type: string }` надо передавать конкретное значение `interface ExtractActionType { type: typeof EXTRACT_DATA }`;
+
+* При сортировке по имени в одном обработчике кнопки обрабатывал два диспатча. Сортировка происходила только после второго нажатия.
+  Решение:
+    Использовал redux-thunk для синхроннго действия. Код находится в `/src/actions/orderByUserNameAction`.
+
 
 

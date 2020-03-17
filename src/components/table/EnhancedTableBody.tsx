@@ -41,82 +41,78 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
   const handleCancelButton = () => {
     onToggleEditMode(ref.current!.id, false)
   }
-  
-  const rowsOfTasks = tasks.map( (task: tasksType) => {
-    // нахожу юзера по id
-      const findedUserObject =  users.find( (itemUser: usersType ) => {
-        return (itemUser.id === task.userId)
-      })
-      const userName: string | undefined = findedUserObject && findedUserObject!.name 
 
-      if(task.title.includes(search)) return (
-        <TableRow key={task.id}>
-          <TableCell>
-            { task.editMode ?
-                <Checkbox 
-                  checked={completed}  
-                  onClick={onToggleCompleted}
-                />
-              : task.completed ? 
-                  <Done color='primary' /> 
-                : <CheckBoxOutlineBlank />
-            }
-          </TableCell>
-
-          <TableCell align="center">
-            <Link to={`/form/${task.userId}`}>
-              {userName}
-            </Link>
-          </TableCell>
-
-          <TableCell align="center">
-            { task.editMode ? 
-                <Input
-                  multiline
-                  defaultValue={task.title}
-                  id={`${task.id}`}
-                  inputRef={ref}
-                  name="task"
-                />
-              : task.title
-            }
-          </TableCell>
-          <TableCell>
-            {
-              task.editMode ? 
-              <>
-                <IconButton
-                  onClick={handleDispatchButton}
-                >
-                  <DoneAll />
-                </IconButton>
-                <IconButton
-                  onClick={handleCancelButton}
-                >
-                  <Cancel />
-                </IconButton>
-              </>
-                
-              : 
-                <IconButton 
-                  id={`${task.id}`}
-                  onClick={() => onToggleEditMode(task.id, true, task.completed)}
-                >
-                  <Edit />
-                </IconButton>
-            }
-          </TableCell>
-        </TableRow>
-      )
-    })
-  
   return (
     <TableBody>
     {
-      rowsOfTasks 
-    }
-   </TableBody>
+      tasks.map( (task: tasksType) => {
+        // нахожу юзера по id
+          const findedUserObject =  users.find( (itemUser: usersType ) => {
+            return (itemUser.id === task.userId)
+          })
+          const userName: string | undefined = findedUserObject && findedUserObject!.name 
     
+          if(task.title.includes(search)) return (
+            <TableRow key={task.id}>
+              <TableCell>
+                { task.editMode ?
+                    <Checkbox 
+                      checked={completed}  
+                      onClick={onToggleCompleted}
+                    />
+                  : task.completed ? 
+                      <Done color='primary' /> 
+                    : <CheckBoxOutlineBlank />
+                }
+              </TableCell>
     
-  )
+              <TableCell align="center">
+                <Link to={`/form/${task.userId}`}>
+                  {userName}
+                </Link>
+              </TableCell>
+    
+              <TableCell align="center">
+                { task.editMode ? 
+                    <Input
+                      multiline
+                      defaultValue={task.title}
+                      id={`${task.id}`}
+                      inputRef={ref}
+                      name="task"
+                    />
+                  : task.title
+                }
+              </TableCell>
+              <TableCell>
+                {
+                  task.editMode ? 
+                  <>
+                    <IconButton
+                      onClick={handleDispatchButton}
+                    >
+                      <DoneAll />
+                    </IconButton>
+                    <IconButton
+                      onClick={handleCancelButton}
+                    >
+                      <Cancel />
+                    </IconButton>
+                  </>
+                    
+                  : 
+                    <IconButton 
+                      id={`${task.id}`}
+                      onClick={() => onToggleEditMode(task.id, true, task.completed)}
+                    >
+                      <Edit />
+                    </IconButton>
+                }
+              </TableCell>
+            </TableRow>
+          )
+        })}
+      </TableBody>    
+    )
+  
 }
