@@ -25,14 +25,21 @@ const addKeyEditMode = (arr: tasksType[]): tasksType[] => {
 }
 
 export const thunkExtractTasks = (): AppThunk => async (dispatch) => {
-  
-  const response = await axios('http://jsonplaceholder.typicode.com/todos')
-  const result = addKeyEditMode(response.data)
-  dispatch(extractTasks(result))
+  try {
+    const response = await axios('http://jsonplaceholder.typicode.com/todos')
+    const result = addKeyEditMode(response.data)
+    dispatch(extractTasks(result))
+  } catch(e) {
+    console.log(e)
+  }
 }
   
 export const thunkExtractUsers = (): AppThunk => async dispatch => {
-  const response = await axios('http://jsonplaceholder.typicode.com/users')
-  dispatch(extractUsers(response.data))
+  try {
+    const response = await axios('http://jsonplaceholder.typicode.com/users')
+    dispatch(extractUsers(response.data))
+  } catch(e) {
+    console.log(e)
+  }
 }
 
