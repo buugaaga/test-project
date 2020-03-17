@@ -6,11 +6,14 @@ import {
   useFormik
 } from 'formik'
 import { TextField, Button } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 
 import { tasksType } from '../../types'
 import { addTaskAction } from '../../actions/addTaskAction'
+import { removeTaskAction } from '../../actions/removeTaskAction'
 
 const SLink = styledEm(Link)`
   position: absolute;
@@ -24,18 +27,12 @@ const SLink = styledEm(Link)`
 `
 const SButton = styled(Button)({
   marginTop: '20px',
-  
-})
-  
 
+})
 
 interface ParamsType {
   userId: any
 }
-
-const TextSchema = Yup.object().shape({
-  task: Yup.string().min(2, 'Слишком короткий текст')
-})
 
 export const FormPage: React.FC<any> = ({tasks, users}) => {
 
@@ -89,7 +86,12 @@ export const FormPage: React.FC<any> = ({tasks, users}) => {
         <ol reversed>
           {userTasks.map( (task: tasksType) => (
             <li key={task.id}>
-              {task.title}
+              {task.title} 
+              <IconButton
+                onClick={ () => dispatch(removeTaskAction(task.id))}
+              >
+                <Delete />
+              </IconButton>
             </li>
           )).reverse()}
         </ol>

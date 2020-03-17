@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { TableBody, TableRow, TableCell, Checkbox, IconButton, Input } from '@material-ui/core'
-import { Edit, Done, CheckBoxOutlineBlank, DoneAll, Cancel } from '@material-ui/icons'
+import { Edit, Done, CheckBoxOutlineBlank, DoneAll, Cancel, Delete } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { tasksType, usersType } from '../../types'
 import { editModeAction } from '../../actions/editModeAction'
 import { updateTaskAction } from '../../actions/updateTaskAction'
+import { removeTaskAction } from '../../actions/removeTaskAction'
 
 
 interface PropsType {
@@ -18,6 +19,8 @@ interface PropsType {
 export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search }) => {
 
   const [ completed, setCompleted ] = useState<boolean>(false)
+
+  const [ errorInput, setErrorInput ] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
@@ -34,12 +37,21 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
   }
 
   const handleDispatchButton = () => {
-    dispatch(updateTaskAction(ref.current!.value, ref.current!.id, completed))
-    onToggleEditMode(ref.current!.id, false)
+    if(ref.current!.value === '') {
+      setErrorInput(true)
+    } else {
+      dispatch(updateTaskAction(ref.current!.value, ref.current!.id, completed))
+      onToggleEditMode(ref.current!.id, false)
+      setErrorInput(false)
+    }
   }
 
   const handleCancelButton = () => {
     onToggleEditMode(ref.current!.id, false)
+  }
+
+  const handleRemove = () => {
+    dispatch(removeTaskAction(+ref.current!.id))
   }
 
   return (
@@ -80,6 +92,7 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
                       id={`${task.id}`}
                       inputRef={ref}
                       name="task"
+                      error={errorInput}
                     />
                   : task.title
                 }
@@ -97,6 +110,11 @@ export const EnhancedTableBody: React.FC<PropsType> = ({ tasks, users, search })
                       onClick={handleCancelButton}
                     >
                       <Cancel />
+                    </IconButton>
+                    <IconButton
+                      onClick={handleRemove}
+                    >
+                      <Delete />
                     </IconButton>
                   </>
                     

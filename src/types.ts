@@ -12,7 +12,7 @@ const EXTRACT_USERS = 'EXTRACT_USERS'
 const EDIT_MODE = 'EDIT_MODE'
 const ORDER_BY_USER_NAME = 'ORDER_BY_USER_NAME'
 const ORDER_TASK_BY_USER = 'ORDER_TASK_BY_USER'
-
+const REMOVE_TASK = 'REMOVE_TASK'
 
 export interface tasksType {
   userId: number
@@ -49,6 +49,11 @@ export type IExtractTasksActionTypes = {
 export interface IAddTaskTypes {
   type: typeof ADD_TASK
   payload: tasksType
+}
+
+export interface IRemoveTask {
+  type: typeof REMOVE_TASK
+  id: number
 }
 
 export interface IActionTypeIsCompleted {
@@ -100,5 +105,6 @@ export {
   EXTRACT_USERS,
   EDIT_MODE,
   ORDER_BY_USER_NAME,
-  ORDER_TASK_BY_USER
+  ORDER_TASK_BY_USER,
+  REMOVE_TASK
 }

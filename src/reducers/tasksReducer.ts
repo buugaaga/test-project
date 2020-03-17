@@ -1,8 +1,8 @@
-import { tasksType,  IExtractTasksActionTypes, IAddTaskTypes, IActionTypeIsCompleted, IActionTypeUpdateTask, IEditModeAction, IActionTypeOrderByUser, IOrderByCompletedAction} from '../types' 
-import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK, EDIT_MODE, ORDER_TASK_BY_USER  } from '../types'
-// import { extractTasks } from '../actions/extractDatasAction'
+import { tasksType,  IExtractTasksActionTypes, IAddTaskTypes, IActionTypeIsCompleted, IActionTypeUpdateTask, IEditModeAction, IActionTypeOrderByUser, IOrderByCompletedAction, IRemoveTask } from '../types' 
+import { EXTRACT_TASKS, ADD_TASK, ORDER_BY_COMPLETED, UPDATE_TASK, EDIT_MODE, ORDER_TASK_BY_USER, REMOVE_TASK } from '../types'
 
-type ActionType =  IExtractTasksActionTypes | IAddTaskTypes | IActionTypeIsCompleted | IActionTypeUpdateTask | IEditModeAction | IActionTypeOrderByUser | IOrderByCompletedAction
+
+type ActionType =  IExtractTasksActionTypes | IAddTaskTypes | IActionTypeIsCompleted | IActionTypeUpdateTask | IEditModeAction | IActionTypeOrderByUser | IOrderByCompletedAction | IRemoveTask
 
 
 export const tasksReducer = (state: tasksType[] | [] = [], action: ActionType): tasksType[] | [] => {
@@ -74,6 +74,10 @@ export const tasksReducer = (state: tasksType[] | [] = [], action: ActionType): 
         }
       }
       return updatedTasks
+      
+    case REMOVE_TASK:
+      return state.filter( task => task.id !== action.id)
+
     default:
       return state
   }
